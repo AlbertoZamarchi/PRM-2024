@@ -1,26 +1,27 @@
 import { Box, Container, Stack, Typography } from "@mui/material";
 import MovieCard from "../MovieCard";
 import { useEffect, useState } from "react";
-import { IMovie } from "../../types";
+import { ICategory, IMovie } from "../../types";
 import { MoviesService } from "../../services/movies-service";
 
 
 type SectionProps = {
-    title: string;
+    category: ICategory;
 }
 
-function Section({title}:SectionProps) {
+function Section({
+    category
+}:SectionProps) {
 
     const [movies, setMovies] = useState<IMovie[]>([]);
 
     useEffect(() => {
-        //Executa o que está aqui dentro quando carrega o componente
-
-        MoviesService.getMovies()
+     if(category.id){
+        MoviesService.getByCategoryId(category.id)
             .then(result => {
                 setMovies(result)
             });
-
+    }
     }, []);
 
     return (
@@ -33,7 +34,7 @@ function Section({title}:SectionProps) {
                         paddingTop: '2rem'
                     }}
                 >
-                    {title}
+                    {category.name}
                 </Typography>
                 <Stack
                     direction="row"
