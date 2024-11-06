@@ -10,7 +10,7 @@ const getMovies = async (): Promise<IMovie[]> => {
     return data;
 }
 
-const getMoviesById = async (id: string): Promise<IMovie[]> => {
+const getMoviesById = async (id: string): Promise<IMovie> => {
     const { data } = await API.get(`${_ENDPOINT}/${id}`)
     return data;
 }

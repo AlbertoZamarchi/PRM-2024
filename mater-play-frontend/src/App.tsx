@@ -1,41 +1,18 @@
+import { Route, Routes } from "react-router-dom"
 import Footer from "./app/components/Footer"
 import Header from "./app/components/Header"
-import Section from "./app/components/Section"
-import { useEffect, useState } from "react"
-import { CategoryService } from "./app/services/category-service"
-import { ICategory } from "./app/types"
-import HighLightSection from "./app/components/HighLightSection"
+import HomePage from "./app/pages/home"
 
 function App() {
 
-  const [categories, setCategories] = useState<ICategory[]>([]);
-
-  useEffect(()=> {
-    CategoryService.getALL()
-    .then(result => {
-      console.log('=>', result)
-      setCategories(result.data)
-    })
-    .catch(error => {
-      console.log(error)
-    })
-  }, []);
+  
 
   return (
     <div className="wrapper">
       <Header/>
-      <main
-        style={{
-          marginTop: '8rem'
-        }}
-      >
-        <HighLightSection />
-        {
-          categories.map(item => (
-            <Section key={item.id} category={item}/>
-          ))
-        }
-      </main>
+      <Routes>
+        <Route path="/:id?" element={<HomePage/>} />
+      </Routes>
       <Footer/>
     </div>
 
